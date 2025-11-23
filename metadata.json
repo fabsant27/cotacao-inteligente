@@ -1,0 +1,7 @@
+{
+  "name": "SmartQuote Generator",
+  "description": "A professional tool for companies to generate, customize, and manage client quotes with automatic data retrieval and AI integration.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
