@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Building2, User, Phone, Mail, Smartphone, MessageCircle, 
   Package, Calculator, Truck, CreditCard, FileText, 
-  Settings, Eye, Share2, Printer, Plus, Trash2, Wand2
+  Settings, Eye, Share2, Printer, Plus, Trash2
 } from 'lucide-react';
 import { 
   Company, Client, QuoteItem, QuoteConfig, FreightType, PaymentMethod 
@@ -10,7 +10,6 @@ import {
 import { 
   formatCurrency, extractColorsFromImage, fetchCNPJData, calculateDistanceMock 
 } from './services/utils';
-import { enhanceItemDescription } from './services/geminiService';
 
 // --- Sub-components for better organization within single file structure ---
 
@@ -196,12 +195,6 @@ function App() {
 
   const removeItem = (id: string) => {
     setItems(items.filter(i => i.id !== id));
-  };
-
-  const enhanceDescription = async (id: string, currentName: string) => {
-      if (!currentName) return;
-      const improved = await enhanceItemDescription(currentName);
-      updateItem(id, 'name', improved);
   };
 
   const calculateFreight = () => {
@@ -419,23 +412,14 @@ function App() {
                                     {/* Line 1: Main Client Info */}
                                     <tr className="hover:bg-gray-50 bg-white">
                                         <td className="px-4 pt-3 pb-1 align-top">
-                                            <div className="flex gap-2">
-                                                <input 
-                                                    type="text" 
-                                                    className="w-full p-1 border rounded bg-transparent" 
-                                                    placeholder="Nome do produto"
-                                                    value={item.name}
-                                                    onChange={e => updateItem(item.id, 'name', e.target.value)}
-                                                    maxLength={250}
-                                                />
-                                                <button 
-                                                    onClick={() => enhanceDescription(item.id, item.name)}
-                                                    className="text-purple-500 hover:text-purple-700 p-1"
-                                                    title="Melhorar com IA"
-                                                >
-                                                    <Wand2 size={16} />
-                                                </button>
-                                            </div>
+                                            <input 
+                                                type="text" 
+                                                className="w-full p-1 border rounded bg-transparent" 
+                                                placeholder="Nome do produto"
+                                                value={item.name}
+                                                onChange={e => updateItem(item.id, 'name', e.target.value)}
+                                                maxLength={250}
+                                            />
                                         </td>
                                         <td className="px-4 pt-3 pb-1 align-top">
                                             <input type="text" className="w-full p-1 border rounded" value={item.ncm} onChange={e => updateItem(item.id, 'ncm', e.target.value)} />
